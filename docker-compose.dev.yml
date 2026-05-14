@@ -1,0 +1,54 @@
+version: "3.9"
+
+# Development stack: PostgreSQL + PGAdmin only
+# Run the app locally with: npm run dev
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: syndiai_postgres_dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: syndiai
+      POSTGRES_USER: syndiai_user
+      POSTGRES_PASSWORD: syndiai_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U syndiai_user -d syndiai"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - syndiai_network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: syndiai_pgadmin_dev
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@syndiai.dev
+      PGADMIN_DEFAULT_PASSWORD: admin_password
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - syndiai_network
+
+volumes:
+  postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+networks:
+  syndiai_network:
+    driver: bridge
