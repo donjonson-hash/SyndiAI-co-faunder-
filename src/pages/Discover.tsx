@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Check, Sparkles, LogIn } from "lucide-react";
+import { X, Check, Sparkles } from "lucide-react";
 import { trpc } from "@/providers/trpc";
 import { useAuth } from "@/hooks/useAuth";
 import SwipeCard from "@/components/SwipeCard";
@@ -140,15 +140,6 @@ export default function Discover() {
           <Sparkles size={24} className="text-[#E100FF]" />
           <h1 className="text-xl font-bold gradient-text">SyndiAI</h1>
         </div>
-        {!isAuthenticated && (
-          <button
-            onClick={() => navigate("/login")}
-            className="flex items-center gap-2 px-4 py-2 rounded-full glass-surface text-sm text-white/80 hover:bg-white/10 transition-colors"
-          >
-            <LogIn size={16} />
-            Sign in to match
-          </button>
-        )}
       </header>
 
       {/* Error Banner */}

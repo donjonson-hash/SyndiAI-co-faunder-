@@ -131,15 +131,6 @@ export default function Home() {
                 <ArrowRight size={20} />
               </motion.button>
             </Link>
-            <Link to="/login">
-              <motion.button
-                className="px-8 py-4 rounded-full glass-surface text-white font-semibold text-lg hover:bg-white/10 transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Sign In
-              </motion.button>
-            </Link>
           </div>
         </motion.div>
 
